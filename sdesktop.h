@@ -1,11 +1,23 @@
-#ifndef DESKTOP_H
-#define DESKTOP_H
+#ifndef SDESKTOP_H
+#define SDESKTOP_H
 
+#include "types.h"
 
-class desktop
-{
+class SDesktop{
+private:
+    Display *               dpy;
+    bool                    play;
+    int                     scr;
+    Window                  win;
+    uint                    width;
+    uint                    height;
+    XVisualInfo *           vi;
+    XEvent                  evnt;
+    GLXContext              glc;
 public:
-    desktop();
+    SDesktop();
+    void init();
+    void launch();
 };
 
-#endif // DESKTOP_H
+#endif // SDESKTOP_H
