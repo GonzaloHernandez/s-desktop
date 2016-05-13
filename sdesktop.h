@@ -14,6 +14,9 @@ private:
     XVisualInfo *           vi;
     XEvent                  evnt;
     GLXContext              glc;
+
+    void changeSize(GLsizei w, GLsizei h);
+
 public:
     SDesktop();
     void init();

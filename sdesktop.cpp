@@ -41,5 +41,17 @@ void SDesktop::launch(){
     XMapWindow(dpy, win);
     while(play){
         XNextEvent(dpy, &evnt);
+        switch(evnt.type){
+            case Expose:
+            break;
+            case KeyPress:
+                XCloseDisplay(dpy);
+                play = false;
+            break;
+        }
     }
+}
+
+void SDesktop::changeSize(GLsizei w, GLsizei h){
+
 }

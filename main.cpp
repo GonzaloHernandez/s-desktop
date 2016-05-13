@@ -1,5 +1,6 @@
 #include <iostream>
 #include "sdesktop.h"
+#include "widget.h"
 
 int main(int arg, char* argv[]){
     SDesktop * s_desktop = new SDesktop();
