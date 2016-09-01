@@ -5,9 +5,11 @@ LIBS += -lX11\
 SOURCES += \
     widget.cpp \
     main.cpp \
-    sdesktop.cpp
+    sdesktop.cpp \
+    frame.cpp
 
 HEADERS += \
     widget.h \
     types.h \
-    sdesktop.h
+    sdesktop.h \
+    frame.h

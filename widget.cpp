@@ -1,9 +1,9 @@
 #include "widget.h"
 #include <cstring>
 
-Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height, GLfloat length,
-               const char text[]="", ulong forecolor=0, ulong backcolor=0xFFFFFF)
-               :x(x),y(y),z(z),width(width),height(height),length(length),forecolor(forecolor),
+Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
+               color forecolor, color backcolor, const char text[]="")
+               :x(x),y(y*-1),z(z),width(width),height(height),forecolor(forecolor),
                 backcolor(backcolor)
 {
     strcpy(this->text, text);
@@ -56,12 +56,12 @@ void Widget::show(){
     draw();
 }
 
-void Widget::setForecolor(ulong forecolor){
+void Widget::setForecolor(color forecolor){
     this->forecolor = forecolor;
     draw();
 }
 
-void Widget::setBackcolor(ulong backcolor){
+void Widget::setBackcolor(color backcolor){
     this->backcolor = backcolor;
     draw();
 }

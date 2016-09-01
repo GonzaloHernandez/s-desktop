@@ -6,20 +6,20 @@
 class Widget{
 protected:
     GLfloat         x,y,z;
-    GLfloat         width,height,length;
+    GLfloat         width,height;
     char            text[256];
     bool            focused;
     bool            hidden;
-    ulong           forecolor;
-    ulong           backcolor;
+    color           forecolor;
+    color           backcolor;
 
     static void defaultAction(){}
     static void defaultTaggedAction(char []){}
     static void defaultReferencedAction(Widget *){}
 
 public:
-    Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height, GLfloat length,
-           const char text[], ulong forecolor, ulong backcolor);
+    Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
+           color forecolor, color backcolor, const char text[]);
 
     void (*action)();
     void (*taggedAction)(char text[]);
@@ -32,8 +32,8 @@ public:
     char *getText();
     void setText(const char text[]);
     void show();
-    void setForecolor(ulong forecolor);
-    void setBackcolor(ulong backcolor);
+    void setForecolor(color forecolor);
+    void setBackcolor(color backcolor);
     virtual void setFocused(bool);
     virtual bool triggerEvent(XEvent&);
     virtual void draw();

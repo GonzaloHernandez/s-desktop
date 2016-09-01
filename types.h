@@ -12,4 +12,11 @@ enum AlignmentType{
     LEFT, RIGTH, CENTER
 };
 
+struct color{
+    float r;
+    float g;
+    float b;
+    float a=1.0f;
+};
+
 #endif // TYPES_H
