@@ -3,13 +3,14 @@
 
 Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
                color forecolor, color backcolor, const char text[]="")
-               :x(x),y(y*-1),z(z),width(width),height(height),forecolor(forecolor),
+               :x(x),y(y),z(z),width(width),height(height),forecolor(forecolor),
                 backcolor(backcolor)
 {
     strcpy(this->text, text);
     action = &defaultAction;
     taggedAction = &defaultTaggedAction;
     referencedAction = &defaultReferencedAction;
+    active = false;
 }
 
 bool Widget::triggerEvent(XEvent &){
@@ -69,3 +70,15 @@ void Widget::setBackcolor(color backcolor){
 void Widget::draw(){}
 
 Widget::~Widget(){}
+
+void Widget::setParent(Widget* widget){
+    parent = widget;
+}
+
+Widget * Widget::getParent(){
+    return parent;
+}
+
+void Widget::setActive(bool active){
+    this->active = active;
+}

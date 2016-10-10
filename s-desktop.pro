@@ -6,10 +6,12 @@ SOURCES += \
     widget.cpp \
     main.cpp \
     sdesktop.cpp \
-    frame.cpp
+    frame.cpp \
+    button.cpp
 
 HEADERS += \
     widget.h \
     types.h \
     sdesktop.h \
-    frame.h
+    frame.h \
+    button.h

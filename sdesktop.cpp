@@ -1,5 +1,6 @@
 #include "sdesktop.h"
 #include <iostream>
+#include "frame.h"
 
 SDesktop::SDesktop()
 {
@@ -12,6 +13,8 @@ void SDesktop::init(){
 
     width = XDisplayWidth(dpy, scr);
     height = XDisplayHeight(dpy, scr);
+    width = 1920;
+    height = 1080;
 
     GLint att[]={
         GLX_RGBA,           True,
@@ -41,8 +44,8 @@ void SDesktop::init(){
 
 void SDesktop::launch(){
     play = true;
-    changeSize();
     XMapWindow(dpy, win);
+    changeSize();
     while(play){
         XNextEvent(dpy, &evnt);
         switch(evnt.type){
@@ -50,7 +53,6 @@ void SDesktop::launch(){
                 draw();
             break;
             case MotionNotify:
-                draw();
             break;
             case KeyPress:
                 switch(evnt.xkey.keycode){
@@ -60,6 +62,9 @@ void SDesktop::launch(){
                     break;
                     case 23:
                         draw();
+                    break;
+                    case 52:
+                        ((Frame *)(widgets[0]))->widgets->setActive(true);
                     break;
                     default:
                         std::cout << evnt.xkey.keycode << std::endl;
@@ -81,9 +86,7 @@ bool SDesktop::add(Widget *widget){
 void SDesktop::render(){
     for(int i=0; i<MAX; i++){
         if(widgets[i]){
-            glPushMatrix();
             widgets[i]->draw();
-            glPopMatrix();
         }
         else{
             break;
@@ -92,16 +95,16 @@ void SDesktop::render(){
 }
 
 void SDesktop::draw(){
-    glClearColor(0.2f,0.2f,0.2f,1.0f);
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    glViewport(0,0,width/2.0,height);
+    glClearColor(.62f, .81f, .93f, 1.0f);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPushMatrix();
-    gluLookAt(-RANGE/2.0,0,1200,-RANGE/2.0,0,0,0,1,0);
+    glViewport(0,0,width/2.0,height);
+    gluLookAt(-RANGE/2, 0.0, 680.0, -RANGE/2, 0.0, 0.0, 0.0, 1.0, 0.0);
     render();
     glPopMatrix();
-    glViewport(width/2.0,0,width/2.0,height);
     glPushMatrix();
-    gluLookAt(RANGE/2.0,0,1200,RANGE/2.0,0,0,0,1,0);
+    glViewport(width/2.0, 0, width/2, height);
+    gluLookAt(RANGE/2, 0.0, 680.0, RANGE/2, 0.0, 0.0, 0.0, 1.0, 0.0);
     render();
     glPopMatrix();
     glXSwapBuffers(dpy, win);

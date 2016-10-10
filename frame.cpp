@@ -24,4 +24,29 @@ void Frame::draw(){
         glVertex3f(x+width,y-height,z);
         glVertex3f(x+width,y,z);
     glEnd();
+    render();
 }
+
+float Frame::getX(){
+    return x;
+}
+
+float Frame::getY(){
+    return y;
+}
+
+float Frame::getZ(){
+    return z;
+}
+
+void Frame::addWidget(Widget* widget){
+    widgets = widget;
+    widgets->setParent(this);
+    std::cout << widgets->getParent() << std::endl;
+    // ...
+}
+
+void Frame::render(){
+    widgets->draw();
+}
+
