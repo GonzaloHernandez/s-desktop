@@ -2,11 +2,14 @@
 #define POINTER_H
 
 #include <GL/glx.h>
-#include "types.h"
 
 class Pointer{
 private:
-    Coordinate coor;
+    struct Coordinate{
+        GLfloat x;
+        GLfloat y;
+        GLfloat z;
+    }coor;
 public:
     Pointer();
     void draw();

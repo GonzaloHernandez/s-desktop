@@ -4,16 +4,16 @@
 #include "widget.h"
 
 class Frame : public Widget{
+    static const int MAX=500;
 private:
+    Widget ** widgets;
+    int c_widget;
+
+    void renderWidgets();
 public:
-    Widget* widgets;
     Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height, color forecolor, color backcolor, const char text[]);
-    void addWidget(Widget* widget);
-    float getX();
-    float getY();
-    float getZ();
     void draw();
-    void render();
+    void addWidget(Widget * widget);
 };
 
 #endif // FRAME_H

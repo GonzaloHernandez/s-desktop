@@ -4,18 +4,12 @@ Pointer::Pointer()
 {
     coor.x = 0;
     coor.y = 0;
-    coor.z = 15;
+    coor.z = 0;
 }
 
 void Pointer::draw(){
     glPushMatrix();
     glBegin(GL_TRIANGLES);
-        glVertex3f(coor.x, coor.y, coor.z);
-        glVertex3f(coor.x, coor.y-10, coor.z);
-        glVertex3f(coor.x+10, coor.y, coor.z);
-    glEnd();
-    glBegin(GL_LINE_LOOP);
-        glColor3f(0,0,0);
         glVertex3f(coor.x, coor.y, coor.z);
         glVertex3f(coor.x, coor.y-10, coor.z);
         glVertex3f(coor.x+10, coor.y, coor.z);

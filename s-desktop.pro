@@ -7,11 +7,13 @@ SOURCES += \
     main.cpp \
     sdesktop.cpp \
     frame.cpp \
-    button.cpp
+    button.cpp \
+    pointer.cpp
 
 HEADERS += \
     widget.h \
     types.h \
     sdesktop.h \
     frame.h \
-    button.h
+    button.h \
+    pointer.h

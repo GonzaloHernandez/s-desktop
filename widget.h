@@ -12,8 +12,8 @@ protected:
     bool            hidden;
     color           forecolor;
     color           backcolor;
-    Widget * parent;
-    bool active;
+    Widget *        parent;
+
     static void defaultAction(){}
     static void defaultTaggedAction(char []){}
     static void defaultReferencedAction(Widget *){}
@@ -35,14 +35,12 @@ public:
     void show();
     void setForecolor(color forecolor);
     void setBackcolor(color backcolor);
+    void setParent(Widget * parent);
+    Widget* getParent();
     virtual void setFocused(bool);
     virtual bool triggerEvent(XEvent&);
-    virtual void draw()=0;
-    void setParent(Widget*);
-    Widget* getParent();
+    virtual void draw();
     virtual ~Widget();
-
-    void setActive(bool active);
 };
 
 #endif // WIDGET_H

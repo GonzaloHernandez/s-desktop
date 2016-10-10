@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "widget.h"
+#include "pointer.h"
 
 class SDesktop{
     static const int   MAX = 500;
@@ -18,6 +19,7 @@ private:
     XEvent                  evnt;
     GLXContext              glc;
     Widget *                widgets[MAX];
+    Pointer *               pointer;
 
     void changeSize();
     void draw();

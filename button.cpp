@@ -1,57 +1,26 @@
 #include "button.h"
-#include <iostream>
 
-Button::Button(GLfloat x, GLfloat y, GLfloat width, GLfloat height,
-             color forecolor, color backcolor, const char text[]="")
-            :Widget(x,y,0,width,height,forecolor,backcolor,text)
+Button::Button(GLfloat x, GLfloat y, GLfloat width, GLfloat height, color forecolor, color backcolor, const char text[])
+    :Widget(x,y,0,width,height,forecolor,backcolor,text)
 {
-
-
-
+    active = false;
 }
 
 void Button::draw(){
-    if (active){
-        glBegin(GL_QUADS);
-            glColor3f(forecolor.r,forecolor.g,forecolor.b);
-            glVertex3f(parent->getX()+x,parent->getY()+y,parent->getZ()+2);
-            glVertex3f(parent->getX()+x,parent->getY()+y-height,parent->getZ()+2);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y-height,parent->getZ()+2);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y,parent->getZ()+2);
-        glEnd();
-        glLineWidth(2.0);
-        glBegin(GL_LINE_LOOP);
-            glColor3f(1.0f,1.0f,1.0f);
-            glVertex3f(parent->getX()+x,parent->getY()+y,parent->getZ()+2);
-            glVertex3f(parent->getX()+x,parent->getY()+y-height,parent->getZ()+2);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y-height,parent->getZ()+2);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y,parent->getZ()+2);
-        glEnd();
-        std::cout << active << std::endl;
-    }
-    else{
-        glBegin(GL_QUADS);
-            glColor3f(forecolor.r,forecolor.g,forecolor.b);
-            glVertex3f(parent->getX()+x,parent->getY()+y,parent->getZ()+5);
-            glVertex3f(parent->getX()+x,parent->getY()+y-height,parent->getZ()+5);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y-height,parent->getZ()+5);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y,parent->getZ()+5);
-        glEnd();
-        glLineWidth(2.0);
-        glBegin(GL_LINE_LOOP);
-            glColor3f(1.0f,1.0f,1.0f);
-            glVertex3f(parent->getX()+x,parent->getY()+y,parent->getZ()+5);
-            glVertex3f(parent->getX()+x,parent->getY()+y-height,parent->getZ()+5);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y-height,parent->getZ()+5);
-            glVertex3f(parent->getX()+x+width,parent->getY()+y,parent->getZ()+5);
-        glEnd();
-        std::cout << active << std::endl;
-    }
-
+    glPushMatrix();
+    glBegin(GL_QUADS);
+        if(active){
+            glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+5);
+            glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+5);
+            glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+5);
+            glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+5);
+        }
+        else{
+            glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+10);
+            glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+10);
+            glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+10);
+            glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+10);
+        }
+    glEnd();
+    glPopMatrix();
 }
-
-bool Button::triggerEvent(XEvent &){
-    // ...
-}
-
-

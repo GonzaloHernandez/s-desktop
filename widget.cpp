@@ -10,7 +10,6 @@ Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
     action = &defaultAction;
     taggedAction = &defaultTaggedAction;
     referencedAction = &defaultReferencedAction;
-    active = false;
 }
 
 bool Widget::triggerEvent(XEvent &){
@@ -67,18 +66,14 @@ void Widget::setBackcolor(color backcolor){
     draw();
 }
 
-void Widget::draw(){}
-
-Widget::~Widget(){}
-
-void Widget::setParent(Widget* widget){
-    parent = widget;
+void Widget::setParent(Widget * parent){
+    this->parent = parent;
 }
 
-Widget * Widget::getParent(){
+Widget* Widget::getParent(){
     return parent;
 }
 
-void Widget::setActive(bool active){
-    this->active = active;
-}
+void Widget::draw(){}
+
+Widget::~Widget(){}

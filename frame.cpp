@@ -5,7 +5,8 @@ Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
              color forecolor, color backcolor, const char text[]="")
             :Widget(x,y,z,width,height,forecolor,backcolor,text)
 {
-
+    widgets = new Widget*[MAX];
+    c_widget = 0;
 }
 
 void Frame::draw(){
@@ -24,29 +25,19 @@ void Frame::draw(){
         glVertex3f(x+width,y-height,z);
         glVertex3f(x+width,y,z);
     glEnd();
-    render();
+    renderWidgets();
 }
 
-float Frame::getX(){
-    return x;
+void Frame::addWidget(Widget *widget){
+    if(c_widget<MAX){
+        widgets[c_widget] = widget;
+        widgets[c_widget]->setParent(this);
+        c_widget++;
+    }
 }
 
-float Frame::getY(){
-    return y;
+void Frame::renderWidgets(){
+    for(int i=0; i<c_widget; i++){
+        widgets[i]->draw();
+    }
 }
-
-float Frame::getZ(){
-    return z;
-}
-
-void Frame::addWidget(Widget* widget){
-    widgets = widget;
-    widgets->setParent(this);
-    std::cout << widgets->getParent() << std::endl;
-    // ...
-}
-
-void Frame::render(){
-    widgets->draw();
-}
-

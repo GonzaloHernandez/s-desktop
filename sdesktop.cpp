@@ -1,6 +1,5 @@
 #include "sdesktop.h"
 #include <iostream>
-#include "frame.h"
 
 SDesktop::SDesktop()
 {
@@ -13,8 +12,8 @@ void SDesktop::init(){
 
     width = XDisplayWidth(dpy, scr);
     height = XDisplayHeight(dpy, scr);
-    width = 1920;
-    height = 1080;
+//    width = 2722;
+//    height = 768;
 
     GLint att[]={
         GLX_RGBA,           True,
@@ -29,7 +28,7 @@ void SDesktop::init(){
 
     swa.background_pixel = 0;
     swa.colormap = XCreateColormap(dpy, DefaultRootWindow(dpy), vi->visual, AllocNone);
-    swa.event_mask = ExposureMask | KeyPressMask | PointerMotionMask;
+    swa.event_mask = ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask;
 
     win = XCreateWindow(dpy, DefaultRootWindow(dpy), 0, 0, width, height, 0, vi->depth, InputOutput,
                        vi->visual, CWColormap | CWEventMask | CWBackPixel, &swa);
@@ -40,12 +39,14 @@ void SDesktop::init(){
     play = false;
 
     glEnable(GL_DEPTH_TEST);
+
+    pointer = new Pointer();
 }
 
 void SDesktop::launch(){
     play = true;
-    XMapWindow(dpy, win);
     changeSize();
+    XMapWindow(dpy, win);
     while(play){
         XNextEvent(dpy, &evnt);
         switch(evnt.type){
@@ -53,6 +54,22 @@ void SDesktop::launch(){
                 draw();
             break;
             case MotionNotify:
+                pointer->setCoor(evnt.xmotion.x-width/2.0, height/2.0-evnt.xmotion.y, pointer->getZ());
+                std::cout << "x:" << pointer->getX() << "y:" << pointer->getY() << "z:" << pointer->getZ() << std::endl;
+                draw();
+            break;
+            case ButtonPress:
+                std::cout << evnt.xbutton.button << std::endl;
+                switch(evnt.xbutton.button){
+                    case 4:
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+100);
+                        draw();
+                    break;
+                    case 5:
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-100);
+                        draw();
+                    break;
+                }
             break;
             case KeyPress:
                 switch(evnt.xkey.keycode){
@@ -62,9 +79,6 @@ void SDesktop::launch(){
                     break;
                     case 23:
                         draw();
-                    break;
-                    case 52:
-                        ((Frame *)(widgets[0]))->widgets->setActive(true);
                     break;
                     default:
                         std::cout << evnt.xkey.keycode << std::endl;
@@ -86,25 +100,30 @@ bool SDesktop::add(Widget *widget){
 void SDesktop::render(){
     for(int i=0; i<MAX; i++){
         if(widgets[i]){
+            glPushMatrix();
             widgets[i]->draw();
+            glPopMatrix();
         }
         else{
             break;
         }
     }
+    pointer->draw();
 }
 
 void SDesktop::draw(){
-    glClearColor(.62f, .81f, .93f, 1.0f);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    glPushMatrix();
+    glClearColor(0.2f,0.2f,0.2f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glViewport(0,0,width/2.0,height);
-    gluLookAt(-RANGE/2, 0.0, 680.0, -RANGE/2, 0.0, 0.0, 0.0, 1.0, 0.0);
+    glLoadIdentity();
+    glPushMatrix();
+    gluLookAt(-RANGE/2.0,0,1200,-RANGE/2.0,0,0,0,1,0);
     render();
     glPopMatrix();
+    glViewport(width/2.0,0,width/2.0,height);
+    glLoadIdentity();
     glPushMatrix();
-    glViewport(width/2.0, 0, width/2, height);
-    gluLookAt(RANGE/2, 0.0, 680.0, RANGE/2, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(RANGE/2.0,0,1200,RANGE/2.0,0,0,0,1,0);
     render();
     glPopMatrix();
     glXSwapBuffers(dpy, win);
