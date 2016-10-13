@@ -10,6 +10,8 @@ private:
         GLfloat y;
         GLfloat z;
     }coor;
+    static constexpr float MAX=512;
+    static constexpr float MIN=-512;
 public:
     Pointer();
     void draw();

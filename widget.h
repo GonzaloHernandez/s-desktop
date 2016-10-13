@@ -2,12 +2,14 @@
 #define WIDGET_H
 
 #include "types.h"
+#include "fontOBJ.h"
 
 class Widget{
 protected:
     GLfloat         x,y,z;
     GLfloat         width,height;
     char            text[256];
+    int             nChar;
     bool            focused;
     bool            hidden;
     color           forecolor;

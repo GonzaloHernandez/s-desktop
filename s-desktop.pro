@@ -1,6 +1,7 @@
 LIBS += -lX11\
     -lGL\
-    -lGLU
+    -lGLU \
+    -lassimp
 
 SOURCES += \
     widget.cpp \
@@ -8,7 +9,8 @@ SOURCES += \
     sdesktop.cpp \
     frame.cpp \
     button.cpp \
-    pointer.cpp
+    pointer.cpp \
+    fontOBJ.cpp
 
 HEADERS += \
     widget.h \
@@ -16,4 +18,5 @@ HEADERS += \
     sdesktop.h \
     frame.h \
     button.h \
-    pointer.h
+    pointer.h \
+    fontOBJ.h

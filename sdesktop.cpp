@@ -1,5 +1,6 @@
 #include "sdesktop.h"
 #include <iostream>
+#include <X11/Xatom.h>
 
 SDesktop::SDesktop()
 {
@@ -12,8 +13,8 @@ void SDesktop::init(){
 
     width = XDisplayWidth(dpy, scr);
     height = XDisplayHeight(dpy, scr);
-//    width = 2722;
-//    height = 768;
+//    width = 1920;
+//    height = 1080;
 
     GLint att[]={
         GLX_RGBA,           True,
@@ -32,6 +33,9 @@ void SDesktop::init(){
 
     win = XCreateWindow(dpy, DefaultRootWindow(dpy), 0, 0, width, height, 0, vi->depth, InputOutput,
                        vi->visual, CWColormap | CWEventMask | CWBackPixel, &swa);
+
+    //Atom atoms[2]={XInternAtom(dpy,"_NET_WM_STATE_FULLSCREEN",False), None};
+    //XChangeProperty(dpy,win,XInternAtom(dpy,"_NET_WM_STATE",False),XA_ATOM,32,PropModeReplace,(const unsigned char *)atoms,1);
 
     glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
     glXMakeCurrent(dpy, win, glc);
@@ -55,18 +59,17 @@ void SDesktop::launch(){
             break;
             case MotionNotify:
                 pointer->setCoor(evnt.xmotion.x-width/2.0, height/2.0-evnt.xmotion.y, pointer->getZ());
-                std::cout << "x:" << pointer->getX() << "y:" << pointer->getY() << "z:" << pointer->getZ() << std::endl;
                 draw();
             break;
             case ButtonPress:
                 std::cout << evnt.xbutton.button << std::endl;
                 switch(evnt.xbutton.button){
                     case 4:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+100);
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+50);
                         draw();
                     break;
                     case 5:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-100);
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-50);
                         draw();
                     break;
                 }
@@ -112,7 +115,7 @@ void SDesktop::render(){
 }
 
 void SDesktop::draw(){
-    glClearColor(0.2f,0.2f,0.2f,1.0f);
+    glClearColor(0.95f,0.95f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glViewport(0,0,width/2.0,height);
     glLoadIdentity();

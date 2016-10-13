@@ -1,15 +1,17 @@
 #include "pointer.h"
+#include <iostream>
 
 Pointer::Pointer()
 {
     coor.x = 0;
     coor.y = 0;
-    coor.z = 0;
+    coor.z = 512;
 }
 
 void Pointer::draw(){
     glPushMatrix();
     glBegin(GL_TRIANGLES);
+        glColor3f(1.0,1.0,1.0);
         glVertex3f(coor.x, coor.y, coor.z);
         glVertex3f(coor.x, coor.y-10, coor.z);
         glVertex3f(coor.x+10, coor.y, coor.z);
@@ -20,7 +22,8 @@ void Pointer::draw(){
 void Pointer::setCoor(GLfloat x, GLfloat y, GLfloat z){
     coor.x = x;
     coor.y = y;
-    coor.z = z;
+    if(z <= MAX && z >= MIN)
+        coor.z = z;
 }
 
 GLfloat Pointer::getX(){

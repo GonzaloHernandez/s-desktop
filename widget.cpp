@@ -1,5 +1,6 @@
 #include "widget.h"
 #include <cstring>
+#include <iostream>
 
 Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
                color forecolor, color backcolor, const char text[]="")
@@ -7,6 +8,10 @@ Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
                 backcolor(backcolor)
 {
     strcpy(this->text, text);
+    nChar = 0;
+    while(text[nChar] != '\0'){
+        nChar++;
+    }
     action = &defaultAction;
     taggedAction = &defaultTaggedAction;
     referencedAction = &defaultReferencedAction;
