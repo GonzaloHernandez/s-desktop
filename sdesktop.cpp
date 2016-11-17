@@ -1,4 +1,5 @@
 #include "sdesktop.h"
+#include "frame.h"
 #include <iostream>
 #include <X11/Xatom.h>
 
@@ -45,6 +46,7 @@ void SDesktop::init(){
     glEnable(GL_DEPTH_TEST);
 
     pointer = new Pointer();
+//    desktop = this;
 }
 
 void SDesktop::launch(){
@@ -62,14 +64,28 @@ void SDesktop::launch(){
                 draw();
             break;
             case ButtonPress:
-                std::cout << evnt.xbutton.button << std::endl;
                 switch(evnt.xbutton.button){
+                    case 1:
+                        for(int i=0; i<MAX; i++){
+                            if(widgets[i]){
+                                if(widgets[i]->mouseInArea(evnt, pointer->getZ())){
+                                    if(strcmp(widgets[i]->type(),"Frame") == 0){
+                                        Widget* focused = ((Frame*)widgets[i])->widgetFocused(evnt, pointer->getZ());
+                                        if(focused){
+                                            focused->action(focused);
+                                            draw();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    break;
                     case 4:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+50);
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+200);//100
                         draw();
                     break;
                     case 5:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-50);
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-200);//100
                         draw();
                     break;
                 }
@@ -138,4 +154,14 @@ void SDesktop::changeSize(){
     glLoadIdentity();
     gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 0.1, 3000);
     glMatrixMode(GL_MODELVIEW);
+}
+
+bool SDesktop::remove(Widget *widget){
+    for(int i=0; i<100; i++){
+        if(widget == widgets[i]){
+            widgets[i] = NULL;
+            return true;
+        }
+    }
+    return false;
 }

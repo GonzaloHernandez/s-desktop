@@ -16,7 +16,7 @@ protected:
     color           backcolor;
     Widget *        parent;
 
-    static void defaultAction(){}
+    static void defaultAction(Widget*){}
     static void defaultTaggedAction(char []){}
     static void defaultReferencedAction(Widget *){}
 
@@ -24,14 +24,16 @@ public:
     Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
            color forecolor, color backcolor, const char text[]);
 
-    void (*action)();
+    void (*action)(Widget*);
     void (*taggedAction)(char text[]);
     void (*referencedAction)(Widget *ref);
 
-    bool mouseInArea(XEvent & evnt);
+    bool mouseInArea(XEvent & evnt, float z);
     GLfloat getX();
     GLfloat getY();
     GLfloat getZ();
+    GLfloat getWidth();
+    GLfloat getHeight();
     char *getText();
     void setText(const char text[]);
     void show();
@@ -42,6 +44,8 @@ public:
     virtual void setFocused(bool);
     virtual bool triggerEvent(XEvent&);
     virtual void draw();
+    virtual const char * type();
+    void hide();
     virtual ~Widget();
 };
 

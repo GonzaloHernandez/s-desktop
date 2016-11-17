@@ -10,6 +10,7 @@ public:
     Button(GLfloat x, GLfloat y, GLfloat width, GLfloat height,
            color forecolor, color backcolor, const char text[]);
     void draw();
+    const char* type();
 };
 
 #endif // BUTTON_H

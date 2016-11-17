@@ -30,6 +30,7 @@ public:
     void init();
     void launch();
     bool add(Widget *widget);
+    bool remove(Widget *widget);
 };
 
 #endif // SDESKTOP_H

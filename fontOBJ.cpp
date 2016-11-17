@@ -43,24 +43,26 @@ void FontOBJ::drawText(const char* texto, float x, float y, float z, float size)
     while(letra != '\0'){
         letra = texto[pos];
         if(letra != '\0'){
-            int let = (int)letra;
-            if(let >= 65 && let <= 90){
-                let -= 65;
+            if(letra != ' '){
+                int let = (int)letra;
+                if(let >= 65 && let <= 90){
+                    let -= 65;
+                }
+                else if(let>=97 && let <=122){
+                    let -= 97;
+                }
+                let = 25 - let;
+                glPushMatrix();
+                for(int i=0; i<letras[let].nVert; i+=2){
+                    glLineWidth(1.0);
+                    glBegin(GL_LINES);
+                        glColor3f(0.0,0.0,0.0);
+                        glVertex3f(x+posx+letras[let].vert[letras[let].index[i]].x*size,y+letras[let].vert[letras[let].index[i]].y*size,z+letras[let].vert[letras[let].index[i]].z);
+                        glVertex3f(x+posx+letras[let].vert[letras[let].index[i+1]].x*size,y+letras[let].vert[letras[let].index[i+1]].y*size,z+letras[let].vert[letras[let].index[i+1]].z);
+                    glEnd();
+                }
+                glPopMatrix();
             }
-            else if(let>=97 && let <=122){
-                let -= 97;
-            }
-            let = 25 - let;
-            glPushMatrix();
-            for(int i=0; i<letras[let].nVert; i+=2){
-                glLineWidth(1.0);
-                glBegin(GL_LINES);
-                    glColor3f(0.0,0.0,0.0);
-                    glVertex3f(x+posx+letras[let].vert[letras[let].index[i]].x*size,y+letras[let].vert[letras[let].index[i]].y*size,z+letras[let].vert[letras[let].index[i]].z);
-                    glVertex3f(x+posx+letras[let].vert[letras[let].index[i+1]].x*size,y+letras[let].vert[letras[let].index[i+1]].y*size,z+letras[let].vert[letras[let].index[i+1]].z);
-                glEnd();
-            }
-            glPopMatrix();
         }
         pos++;
         posx+=.4*size;

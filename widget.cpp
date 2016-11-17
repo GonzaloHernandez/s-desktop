@@ -12,21 +12,33 @@ Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
     while(text[nChar] != '\0'){
         nChar++;
     }
+    hidden = false;
     action = &defaultAction;
     taggedAction = &defaultTaggedAction;
     referencedAction = &defaultReferencedAction;
+    parent = NULL;
 }
 
 bool Widget::triggerEvent(XEvent &){
     return false;
 }
 
-bool Widget::mouseInArea(XEvent &evnt){             //Event to z ------------------------> *
-    int mx = evnt.xbutton.x;
-    int my = evnt.xbutton.y;
-
-    if(mx > x && mx < x+width && my > y && my < y+height){
-        return true;
+bool Widget::mouseInArea(XEvent &evnt, float z){             //Event to z ------------------------> *
+    int mx = evnt.xbutton.x-1366/2;
+    int my = 768/2-evnt.xbutton.y;
+    if(!getParent()){
+        if(z > this->z && z < this->z+50){
+            if(mx > x && mx < x+width && my < y && my > y-height){
+                return true;
+            }
+        }
+    }
+    else{
+        if(z > this->getParent()->getZ() && z < this->getParent()->getZ()+50){
+            if(mx > getParent()->getX()+x && mx < getParent()->getX()+x+width && my < getParent()->getY()-y && my > getParent()->getY()-height-y){
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -58,7 +70,6 @@ void Widget::setText(const char text[]){
 
 void Widget::show(){
     hidden = false;
-    draw();
 }
 
 void Widget::setForecolor(color forecolor){
@@ -80,5 +91,21 @@ Widget* Widget::getParent(){
 }
 
 void Widget::draw(){}
+
+const char* Widget::type(){
+    return "Widget";
+}
+
+GLfloat Widget::getWidth(){
+    return width;
+}
+
+GLfloat Widget::getHeight(){
+    return height;
+}
+
+void Widget::hide(){
+    hidden = true;
+}
 
 Widget::~Widget(){}
