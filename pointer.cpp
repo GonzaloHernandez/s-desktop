@@ -5,20 +5,20 @@ Pointer::Pointer()
 {
     coor.x = 0;
     coor.y = 0;
-    coor.z = 802;//512
+    coor.z = 702;//512
 }
 
 void Pointer::draw(){
     glPushMatrix();
     glBegin(GL_TRIANGLES);
-        glColor3f(1.0,1.0,1.0);
+        glColor3f(.0,.0,.0);
         glVertex3f(coor.x, coor.y, coor.z);
         glVertex3f(coor.x, coor.y-10, coor.z);
         glVertex3f(coor.x+10, coor.y, coor.z);
     glEnd();
     glBegin(GL_LINE_STRIP);
         glLineWidth(2.0);
-        glColor3f(0.0,0.0,0.0);
+        glColor3f(1.0,1.0,1.0);
         glVertex3f(coor.x, coor.y, coor.z);
         glVertex3f(coor.x, coor.y-10, coor.z);
         glVertex3f(coor.x+10, coor.y, coor.z);

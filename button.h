@@ -11,6 +11,7 @@ public:
            color forecolor, color backcolor, const char text[]);
     void draw();
     const char* type();
+    void setActive(bool active);
 };
 
 #endif // BUTTON_H

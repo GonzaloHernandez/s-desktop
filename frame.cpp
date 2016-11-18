@@ -5,7 +5,7 @@
 
 Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
              color forecolor, color backcolor, const char text[]="")
-            :Widget(x,y,800-(z*200),width,height,forecolor,backcolor,text)//510-100
+            :Widget(x,y,700-(z*200),width,height,forecolor,backcolor,text)//510-100
 {
     widgets = new Widget*[MAX];
     c_widget = 0;

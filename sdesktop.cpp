@@ -1,5 +1,6 @@
 #include "sdesktop.h"
 #include "frame.h"
+#include "button.h"
 #include <iostream>
 #include <X11/Xatom.h>
 
@@ -14,8 +15,6 @@ void SDesktop::init(){
 
     width = XDisplayWidth(dpy, scr);
     height = XDisplayHeight(dpy, scr);
-//    width = 1920;
-//    height = 1080;
 
     GLint att[]={
         GLX_RGBA,           True,
@@ -72,6 +71,7 @@ void SDesktop::launch(){
                                     if(strcmp(widgets[i]->type(),"Frame") == 0){
                                         Widget* focused = ((Frame*)widgets[i])->widgetFocused(evnt, pointer->getZ());
                                         if(focused){
+                                            ((Button*)(focused))->setActive(true);
                                             focused->action(focused);
                                             draw();
                                         }

@@ -43,8 +43,8 @@ bool Widget::mouseInArea(XEvent &evnt, float z){             //Event to z ------
     return false;
 }
 
-void Widget::setFocused(bool){
-    this->focused = false;
+void Widget::setFocused(bool focused){
+    this->focused = focused;
 }
 
 GLfloat Widget::getX(){

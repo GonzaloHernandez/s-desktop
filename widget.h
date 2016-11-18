@@ -41,7 +41,7 @@ public:
     void setBackcolor(color backcolor);
     void setParent(Widget * parent);
     Widget* getParent();
-    virtual void setFocused(bool);
+    virtual void setFocused(bool focused);
     virtual bool triggerEvent(XEvent&);
     virtual void draw();
     virtual const char * type();
