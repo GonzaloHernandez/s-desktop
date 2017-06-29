@@ -3,6 +3,7 @@
 #include "button.h"
 #include <iostream>
 #include <X11/Xatom.h>
+#include <sys/time.h>
 
 SDesktop::SDesktop()
 {
@@ -52,15 +53,30 @@ void SDesktop::launch(){
     play = true;
     changeSize();
     XMapWindow(dpy, win);
+
+    struct timeval tp;
+    gettimeofday(&tp, NULL);
+    long int last = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    long int curr;
+
     while(play){
+        if( XPending(dpy) == 0) {
+            gettimeofday(&tp, NULL);
+            curr = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+            if(curr - last >= 1000/60){
+                draw();
+                last = curr;
+            }
+            continue;
+        }
         XNextEvent(dpy, &evnt);
         switch(evnt.type){
             case Expose:
-                draw();
+                //draw();
             break;
             case MotionNotify:
                 pointer->setCoor(evnt.xmotion.x-width/2.0, height/2.0-evnt.xmotion.y, pointer->getZ());
-                draw();
+                //draw();
             break;
             case ButtonPress:
                 switch(evnt.xbutton.button){
@@ -73,7 +89,7 @@ void SDesktop::launch(){
                                         if(focused){
                                             ((Button*)(focused))->setActive(true);
                                             focused->action(focused);
-                                            draw();
+                                            //draw();
                                         }
                                     }
                                 }
@@ -82,11 +98,11 @@ void SDesktop::launch(){
                     break;
                     case 4:
                         pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+200);//100
-                        draw();
+                        //draw();
                     break;
                     case 5:
                         pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-200);//100
-                        draw();
+                        //draw();
                     break;
                 }
             break;
@@ -97,7 +113,7 @@ void SDesktop::launch(){
                         play = false;
                     break;
                     case 23:
-                        draw();
+                        //draw();
                     break;
                     default:
                         std::cout << evnt.xkey.keycode << std::endl;

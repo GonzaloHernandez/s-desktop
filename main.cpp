@@ -3,6 +3,7 @@
 #include "widget.h"
 #include "frame.h"
 #include "button.h"
+#include "icon.h"
 
 SDesktop * s_desktop = new SDesktop();
 int nivel=1;
@@ -52,6 +53,8 @@ int main(int arg, char* argv[]){
     //Button * button3 = new Button(10,160,50,20,c,c2,"Button");
     frame1->addWidget(button1);
     frame1->addWidget(button2);
+    Icon * icon = new Icon(300,200,0,100,100,c2,c2,"Icon");
+    s_desktop->add(icon);
     //s_desktop->add(frame2);
     s_desktop->launch();
     delete s_desktop;
