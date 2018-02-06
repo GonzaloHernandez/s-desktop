@@ -14,7 +14,7 @@ void reset(Widget *){
     col = 0.2;
 }
 
-void action(Widget*){
+void action(Widget *){
     color c;
     c.r = 1-col;
     c.g = 1-col*0.3;
@@ -27,32 +27,26 @@ void action(Widget*){
 }
 
 int main(int , char* []){
-    color c;
-    c.r = 0.5;
-    c.g = 0.5;
-    c.b = 0.5;
-    color c1;
-    c1.r = 0.0;
-    c1.g = 0.0;
-    c1.b = 0.0;
-    color c2;
-    c2.r = 0.9;
-    c2.g = 0.9;
-    c2.b = 0.9;
+    color c  = {0.5 , 0.5 , 0.5};
+    color c1 = {1.0 , 1.0 , 1.0};
+    color c2 = {0.9 , 0.9 , 0.9};
+
     Frame * frame = new Frame(-10, 20, 1, 500, 300, c, c, "Ventana A");
-    s_desktop->add(frame);                                                                    //añadir
-    Frame * frame1 = new Frame(0, -100, 0, 300, 100, c2, c, "Ventana B");
+    s_desktop->add(frame);
+    Frame * frame1 = new Frame(0, -100, 0, 300, 100, c1, c, "Ventana B");
     s_desktop->add(frame1);
-//    Frame * frame2 = new Frame(-300, 300, 300, 300, 300, c2, c, "Frame");
+    Frame * frame2 = new Frame(-300, 300, 300, 300, 300, c2, c, "Frame");
+
     Button * button1 = new Button(10,35,100,20,c,c,"Add Window");
     button1->action = &action;
     Button * button2 = new Button(10,60,100,20,c,c,"   Reset");
     button2->action = &reset;
-    //Button * button2 = new Button(10,130,50,20,c,c2,"Button");
-    //Button * button3 = new Button(10,160,50,20,c,c2,"Button");
+
     frame1->addWidget(button1);
     frame1->addWidget(button2);
-    //s_desktop->add(frame2);
+
+    s_desktop->add(frame2);
+
     s_desktop->launch();
     delete s_desktop;
 }
