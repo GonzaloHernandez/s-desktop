@@ -39,8 +39,8 @@ int main(int , char* []){
     c2.r = 0.9;
     c2.g = 0.9;
     c2.b = 0.9;
-//    Frame * frame = new Frame(-10, 20, 1, 500, 300, c, c, "Ventana A");
-    //s_desktop->add(frame);                                                                    //añadir
+    Frame * frame = new Frame(-10, 20, 1, 500, 300, c, c, "Ventana A");
+    s_desktop->add(frame);                                                                    //añadir
     Frame * frame1 = new Frame(0, -100, 0, 300, 100, c2, c, "Ventana B");
     s_desktop->add(frame1);
 //    Frame * frame2 = new Frame(-300, 300, 300, 300, 300, c2, c, "Frame");
