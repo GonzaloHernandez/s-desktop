@@ -9,9 +9,12 @@ private:
 public:
     Button(GLfloat x, GLfloat y, GLfloat width, GLfloat height,
            color forecolor, color backcolor, const char text[]);
+
     void draw();
     const char* type();
     void setActive(bool active);
+
+    bool triggerEvent(XEvent& event, float z);
 };
 
 #endif // BUTTON_H

@@ -31,15 +31,13 @@ int main(int , char* []){
     color c1 = {1.0 , 1.0 , 1.0};
     color c2 = {0.9 , 0.9 , 0.9};
 
-    Frame * frame = new Frame(-10, 20, 1, 500, 300, c, c, "Ventana A");
-    s_desktop->add(frame);
-    Frame * frame1 = new Frame(0, -100, 0, 300, 100, c1, c, "Ventana B");
+    Frame * frame1 = new Frame(0, 0, 1, 300, 100, c1, c, "Ventana B");
     s_desktop->add(frame1);
     Frame * frame2 = new Frame(-300, 300, 300, 300, 300, c2, c, "Frame");
 
     Button * button1 = new Button(10,35,100,20,c,c,"Add Window");
     button1->action = &action;
-    Button * button2 = new Button(10,60,100,20,c,c,"   Reset");
+    Button * button2 = new Button(10,60,100,20,c,c,"Reset");
     button2->action = &reset;
 
     frame1->addWidget(button1);

@@ -46,3 +46,30 @@ const char* Button::type(){
 void Button::setActive(bool active){
     this->active = active;
 }
+
+bool Button::triggerEvent(XEvent &event, float z) {
+    switch (event.type) {
+        case ButtonPress:
+            if (mouseInArea(event,z)) {
+                active = true;
+                draw();
+            }
+            break;
+        case ButtonRelease:
+            if (active && mouseInArea(event,z)) {
+                active = false;
+                draw();
+                (*action)(this);
+                (*taggedAction)(text);
+                (*referencedAction)(this);
+                return true;
+            }
+            break;
+        case MotionNotify:
+            if (active && !mouseInArea(event,z)) {
+                active = false;
+                draw();
+            }
+    }
+    return false;
+}

@@ -19,7 +19,7 @@ Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
     parent = NULL;
 }
 
-bool Widget::triggerEvent(XEvent &){
+bool Widget::triggerEvent(XEvent &e){
     return false;
 }
 
@@ -27,7 +27,7 @@ bool Widget::mouseInArea(XEvent &evnt, float z){             //Event to z ------
     int mx = evnt.xbutton.x-1366/2;
     int my = 768/2-evnt.xbutton.y;
     if(!getParent()){
-        if(z > this->z && z < this->z+50){
+        if(z >= this->z && z < this->z+50){
             if(mx > x && mx < x+width && my < y && my > y-height){
                 return true;
             }
