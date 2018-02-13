@@ -17,8 +17,8 @@ Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
     buttons.g = forecolor.g-0.5;
     buttons.b = forecolor.b-0.5;
     Button * close = new Button(width-27,5,20,20,buttons,buttons,"X");
-    Button * mini = new Button(width-52,5,20,20,buttons,buttons,"");
-    Button * maxi = new Button(width-77,5,20,20,buttons,buttons,"");
+    Button * mini = new Button(width-52,5,20,20,buttons,buttons,"m");
+    Button * maxi = new Button(width-77,5,20,20,buttons,buttons,"O");
     addWidget(close);
     addWidget(mini);
     addWidget(maxi);

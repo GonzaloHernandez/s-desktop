@@ -5,7 +5,7 @@ Pointer::Pointer()
 {
     coor.x = 0;
     coor.y = 0;
-    coor.z = 702;//512
+    coor.z = 512;//512
 }
 
 void Pointer::draw(){
