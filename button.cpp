@@ -47,16 +47,16 @@ void Button::setActive(bool active){
     this->active = active;
 }
 
-bool Button::triggerEvent(XEvent &event, float z) {
+bool Button::triggerEvent(XEvent& event, Pointer* pointer) {
     switch (event.type) {
         case ButtonPress:
-            if (mouseInArea(event,z)) {
+            if (mouseInArea(pointer)) {
                 active = true;
                 draw();
             }
             break;
         case ButtonRelease:
-            if (active && mouseInArea(event,z)) {
+            if (active && mouseInArea(pointer)) {
                 active = false;
                 draw();
                 (*action)(this);
@@ -66,7 +66,7 @@ bool Button::triggerEvent(XEvent &event, float z) {
             }
             break;
         case MotionNotify:
-            if (active && !mouseInArea(event,z)) {
+            if (active && !mouseInArea(pointer)) {
                 active = false;
                 draw();
             }

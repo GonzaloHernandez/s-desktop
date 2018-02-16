@@ -19,7 +19,7 @@ public:
     Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height, color forecolor, color backcolor, const char text[]);
     void draw();
     void addWidget(Widget * widget);
-    Widget * widgetFocused(XEvent&, float z);
+    Widget * widgetFocused(Pointer* ppointer);
     const char* type();
 };
 

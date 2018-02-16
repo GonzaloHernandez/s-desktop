@@ -14,7 +14,7 @@ public:
     const char* type();
     void setActive(bool active);
 
-    bool triggerEvent(XEvent& event, float z);
+    bool triggerEvent(XEvent& event, Pointer* pointer);
 };
 
 #endif // BUTTON_H

@@ -83,9 +83,9 @@ void SDesktop::launch(){
                     case 1:
                         for(int i=0; i<MAX; i++){
                             if(widgets[i]){
-                                if(widgets[i]->mouseInArea(evnt, pointer->getZ())){
+                                if(widgets[i]->mouseInArea(pointer)){
                                     if(strcmp(widgets[i]->type(),"Frame") == 0){
-                                        Widget* focused = ((Frame*)widgets[i])->widgetFocused(evnt, pointer->getZ());
+                                        Widget* focused = ((Frame*)widgets[i])->widgetFocused(pointer);
                                         if(focused){
                                             ((Button*)(focused))->setActive(true);
                                             focused->action(focused);

@@ -23,9 +23,10 @@ bool Widget::triggerEvent(XEvent &e){
     return false;
 }
 
-bool Widget::mouseInArea(XEvent &evnt, float z){             //Event to z ------------------------> *
-    int mx = evnt.xbutton.x-1366/2;
-    int my = 768/2-evnt.xbutton.y;
+bool Widget::mouseInArea(Pointer* pointer){             //Event to z ------------------------> *
+    int mx = pointer->getX();
+    int my = pointer->getY();
+    int z = pointer->getZ();
     if(!getParent()){
         if(z >= this->z && z < this->z+50){
             if(mx > x && mx < x+width && my < y && my > y-height){

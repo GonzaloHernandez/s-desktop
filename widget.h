@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "pointer.h"
 #include "types.h"
 #include "fontOBJ.h"
 
@@ -28,7 +29,7 @@ public:
     void (*taggedAction)(char text[]);
     void (*referencedAction)(Widget *ref);
 
-    bool mouseInArea(XEvent & evnt, float z);
+    bool mouseInArea(Pointer* pointer);
     GLfloat getX();
     GLfloat getY();
     GLfloat getZ();

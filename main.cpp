@@ -33,7 +33,7 @@ int main(int , char* []){
 
     Frame * frame1 = new Frame(0, 0, 1, 300, 100, c1, c, "Ventana B");
     s_desktop->add(frame1);
-    Frame * frame2 = new Frame(-300, 300, 300, 300, 300, c2, c, "Frame");
+    Frame * frame2 = new Frame(-300, 300, 2, 300, 300, c2, c, "Frame");
 
     Button * button1 = new Button(10,35,100,20,c,c,"Add Window");
     button1->action = &action;

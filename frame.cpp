@@ -80,10 +80,10 @@ const char* Frame::type(){
     return "Frame";
 }
 
-Widget* Frame::widgetFocused(XEvent& evnt, float z){
+Widget* Frame::widgetFocused(Pointer* pointer){
     for(int i=0; i<MAX; i++){
         if(widgets[i]){
-            if(widgets[i]->mouseInArea(evnt, z)){
+            if(widgets[i]->mouseInArea(pointer)){
                 return widgets[i];
             }
         }
