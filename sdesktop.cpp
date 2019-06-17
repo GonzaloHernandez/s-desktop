@@ -35,6 +35,27 @@ void SDesktop::init(){
     win = XCreateWindow(dpy, DefaultRootWindow(dpy), 0, 0, width, height, 0, vi->depth, InputOutput,
                        vi->visual, CWColormap | CWEventMask | CWBackPixel, &swa);
 
+    //-------------------------------------------------------------
+
+    Pixmap bm_no;
+    Colormap cmap;
+    Cursor no_ptr;
+    XColor black, dummy;
+    static char bm_no_data[] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+    cmap = DefaultColormap(dpy, DefaultScreen(dpy));
+    XAllocNamedColor(dpy, cmap, "black", &black, &dummy);
+    bm_no = XCreateBitmapFromData(dpy, win, bm_no_data, 8, 8);
+    no_ptr = XCreatePixmapCursor(dpy, bm_no, bm_no, &black, &black, 0, 0);
+
+    XDefineCursor(dpy, win, no_ptr);
+    XFreeCursor(dpy, no_ptr);
+    if (bm_no != None)
+            XFreePixmap(dpy, bm_no);
+    XFreeColors(dpy, cmap, &black.pixel, 1, 0);
+
+    //-------------------------------------------------------------
+
     //Atom atoms[2]={XInternAtom(dpy,"_NET_WM_STATE_FULLSCREEN",False), None};
     //XChangeProperty(dpy,win,XInternAtom(dpy,"_NET_WM_STATE",False),XA_ATOM,32,PropModeReplace,(const unsigned char *)atoms,1);
 
