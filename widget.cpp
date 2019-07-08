@@ -19,7 +19,7 @@ Widget::Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
     parent = NULL;
 }
 
-bool Widget::triggerEvent(XEvent &e){
+bool Widget::triggerEvent(XEvent &){
     return false;
 }
 
@@ -107,6 +107,7 @@ GLfloat Widget::getHeight(){
 
 void Widget::hide(){
     hidden = true;
+    (*action)(this);
 }
 
 Widget::~Widget(){}

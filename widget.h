@@ -21,9 +21,9 @@ protected:
     static void defaultTaggedAction(char []){}
     static void defaultReferencedAction(Widget *){}
 
-public:
     Widget(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
            color forecolor, color backcolor, const char text[]);
+public:
 
     void (*action)(Widget*);
     void (*taggedAction)(char text[]);

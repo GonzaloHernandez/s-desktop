@@ -3,6 +3,14 @@
 #include "types.h"
 #include <iostream>
 
+//void (*closedAction)();
+
+
+void closeWindow(Widget* button){
+//    (*closedAction)();
+    button->getParent()->hide();
+}
+
 Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
              color forecolor, color backcolor, const char text[]="")
             :Widget(x,y,700-(z*200),width,height,forecolor,backcolor,text)//510-100
@@ -13,9 +21,9 @@ Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
         widgets[i] = NULL;
     }
     color buttons;
-    buttons.r = forecolor.r-0.5;
-    buttons.g = forecolor.g-0.5;
-    buttons.b = forecolor.b-0.5;
+    buttons.r = forecolor.r-0.5f;
+    buttons.g = forecolor.g-0.5f;
+    buttons.b = forecolor.b-0.5f;
     Button * close = new Button(width-27,5,20,20,buttons,buttons,"X");
     Button * mini = new Button(width-52,5,20,20,buttons,buttons,"m");
     Button * maxi = new Button(width-77,5,20,20,buttons,buttons,"O");
@@ -28,7 +36,7 @@ Frame::Frame(GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height,
 void Frame::draw(){
     if(!hidden){
         glBegin(GL_QUADS);
-            glColor3f(forecolor.r-0.3,forecolor.g-0.3,forecolor.b-0.3);
+            glColor3f(forecolor.r-0.3f,forecolor.g-0.3f,forecolor.b-0.3f);
             glVertex3f(x,y,z);
             glVertex3f(x,y-30,z);
             glVertex3f(x+width,y-30,z);
@@ -41,7 +49,7 @@ void Frame::draw(){
         glEnd();
         glLineWidth(2.0);
         glBegin(GL_LINE_LOOP);
-            glColor3f(forecolor.r+0.1,forecolor.g+0.1,forecolor.b+0.1);
+            glColor3f(forecolor.r+0.1f,forecolor.g+0.1f,forecolor.b+0.1f);
             glVertex3f(x,y,z);
             glVertex3f(x,y-height,z);
             glVertex3f(x+width,y-height,z);

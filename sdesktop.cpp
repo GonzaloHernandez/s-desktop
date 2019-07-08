@@ -10,6 +10,13 @@ SDesktop::SDesktop()
     init();
 }
 
+SDesktop::~SDesktop()
+{
+    for(int i=0; i<MAX; i++) if(widgets[i]){
+        delete widgets[i];
+    }
+}
+
 void SDesktop::init(){
     dpy = XOpenDisplay(NULL);
     scr = DefaultScreen(dpy);
@@ -109,6 +116,7 @@ void SDesktop::launch(){
                                         Widget* focused = ((Frame*)widgets[i])->widgetFocused(pointer);
                                         if(focused){
                                             ((Button*)(focused))->setActive(true);
+//                                            ((Button*)(focused))->triggerEvent(evnt,pointer);
                                             focused->action(focused);
                                             //draw();
                                         }
@@ -143,6 +151,8 @@ void SDesktop::launch(){
             break;
         }
     }
+    XDestroyWindow(dpy,win);
+    //XCloseDisplay(dpy);
 }
 
 bool SDesktop::add(Widget *widget){

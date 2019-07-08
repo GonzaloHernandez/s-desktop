@@ -27,6 +27,7 @@ private:
 
 public:
     SDesktop();
+    ~SDesktop();
     void init();
     void launch();
     bool add(Widget *widget);

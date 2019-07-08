@@ -13,25 +13,25 @@ void Button::draw(){
         glColor3f(forecolor.r,forecolor.g,forecolor.b);
         glBegin(GL_QUADS);
             if(active){
-                glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+.1);
-                glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+.1);
-                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+.1);
-                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+.1);
+                glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+.6);
+                glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+.6);
+                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+.6);
+                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+.6);
             }
             else{
-                glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+.7);
-                glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+.7);
-                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+.7);
-                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+.7);
+                glVertex3f(getParent()->getX()+x,getParent()->getY()-y, getParent()->getZ()+.9);
+                glVertex3f(getParent()->getX()+x,getParent()->getY()-y-height, getParent()->getZ()+.9);
+                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y-height, getParent()->getZ()+.9);
+                glVertex3f(getParent()->getX()+x+width,getParent()->getY()-y, getParent()->getZ()+.9);
             }
         glEnd();
         FontOBJ *font = new FontOBJ("../s-desktop/fonts.obj");
         if(font){
             if(active){
-                font->drawText(text,getParent()->getX()+x+10,getParent()->getY()-y-height/2.0-0.5,getParent()->getZ()+0.4,20);
+                font->drawText(text,getParent()->getX()+x+10,getParent()->getY()-y-height/2.0-0.5,getParent()->getZ()+1.4,20);
             }
             else{
-                font->drawText(text,getParent()->getX()+x+10,getParent()->getY()-y-height/2.0-0.5,getParent()->getZ()+1.0,20);
+                font->drawText(text,getParent()->getX()+x+10,getParent()->getY()-y-height/2.0-0.5,getParent()->getZ()+1.5,20);
             }
         }
         delete font;
@@ -60,8 +60,8 @@ bool Button::triggerEvent(XEvent& event, Pointer* pointer) {
                 active = false;
                 draw();
                 (*action)(this);
-                (*taggedAction)(text);
-                (*referencedAction)(this);
+//                (*taggedAction)(text);
+//                (*referencedAction)(this);
                 return true;
             }
             break;
