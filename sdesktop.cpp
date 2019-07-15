@@ -37,7 +37,7 @@ void SDesktop::init(){
 
     swa.background_pixel = 0;
     swa.colormap = XCreateColormap(dpy, DefaultRootWindow(dpy), vi->visual, AllocNone);
-    swa.event_mask = ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask;
+    swa.event_mask = ExposureMask | KeyPressMask | ButtonPressMask | PointerMotionMask | ButtonReleaseMask;
 
     win = XCreateWindow(dpy, DefaultRootWindow(dpy), 0, 0, width, height, 0, vi->depth, InputOutput,
                        vi->visual, CWColormap | CWEventMask | CWBackPixel, &swa);
@@ -100,11 +100,9 @@ void SDesktop::launch(){
         XNextEvent(dpy, &evnt);
         switch(evnt.type){
             case Expose:
-                //draw();
             break;
             case MotionNotify:
                 pointer->setCoor(evnt.xmotion.x-width/2.0, height/2.0-evnt.xmotion.y, pointer->getZ());
-                //draw();
             break;
             case ButtonPress:
                 switch(evnt.xbutton.button){
@@ -116,9 +114,8 @@ void SDesktop::launch(){
                                         Widget* focused = ((Frame*)widgets[i])->widgetFocused(pointer);
                                         if(focused){
                                             ((Button*)(focused))->setActive(true);
-//                                            ((Button*)(focused))->triggerEvent(evnt,pointer);
-                                            focused->action(focused);
-                                            //draw();
+                                            ((Button*)(focused))->triggerEvent(evnt,pointer);
+//                                            focused->action(focused);
                                         }
                                     }
                                 }
@@ -126,12 +123,30 @@ void SDesktop::launch(){
                         }
                     break;
                     case 4:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+200);//100
-                        //draw();
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()+100);//100
                     break;
                     case 5:
-                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-200);//100
-                        //draw();
+                        pointer->setCoor(pointer->getX(), pointer->getY(), pointer->getZ()-100);//100
+                    break;
+                }
+            break;
+            case ButtonRelease:
+                switch(evnt.xbutton.button){
+                    case 1:
+                        for(int i=0; i<MAX; i++){
+                            if(widgets[i]){
+                                if(widgets[i]->mouseInArea(pointer)){
+                                    if(strcmp(widgets[i]->type(),"Frame") == 0){
+                                        Widget* focused = ((Frame*)widgets[i])->widgetFocused(pointer);
+                                        if(focused){
+                                            ((Button*)(focused))->triggerEvent(evnt,pointer);
+    //                                            focused->action(focused);
+                                            //draw();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     break;
                 }
             break;

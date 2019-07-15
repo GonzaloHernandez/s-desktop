@@ -24,9 +24,9 @@ bool Widget::triggerEvent(XEvent &){
 }
 
 bool Widget::mouseInArea(Pointer* pointer){             //Event to z ------------------------> *
-    int mx = pointer->getX();
-    int my = pointer->getY();
-    int z = pointer->getZ();
+    float mx = pointer->getX();
+    float my = pointer->getY();
+    float z = pointer->getZ();
     if(!getParent()){
         if(z >= this->z && z < this->z+50){
             if(mx > x && mx < x+width && my < y && my > y-height){
