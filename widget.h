@@ -36,11 +36,19 @@ public:
     GLfloat getWidth();
     GLfloat getHeight();
     char *getText();
+    color getBackcolor();
+
     void setText(const char text[]);
     void show();
     void setForecolor(color forecolor);
     void setBackcolor(color backcolor);
     void setParent(Widget * parent);
+
+    void setX(GLfloat x);
+    void setY(GLfloat y);
+    void setWidth(GLfloat width);
+    void setHeight(GLfloat heiht);
+
     Widget* getParent();
     virtual void setFocused(bool focused);
     virtual bool triggerEvent(XEvent&);

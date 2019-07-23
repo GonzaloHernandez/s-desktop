@@ -64,6 +64,11 @@ char * Widget::getText(){
     return text;
 }
 
+color Widget::getBackcolor()
+{
+    return backcolor;
+}
+
 void Widget::setText(const char text[]){
     strcpy(this->text, text);
     draw();
@@ -85,6 +90,30 @@ void Widget::setBackcolor(color backcolor){
 
 void Widget::setParent(Widget * parent){
     this->parent = parent;
+}
+
+void Widget::setX(GLfloat x)
+{
+    this->x = x;
+    draw();
+}
+
+void Widget::setY(GLfloat y)
+{
+    this->y = y;
+    draw();
+}
+
+void Widget::setWidth(GLfloat width)
+{
+    this->width = width;
+    draw();
+}
+
+void Widget::setHeight(GLfloat height)
+{
+    this->height = height;
+    draw();
 }
 
 Widget* Widget::getParent(){
